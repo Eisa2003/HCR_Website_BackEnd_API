@@ -1,0 +1,27 @@
+{
+  "name": "hcr_website_backend_api",
+  "version": "1.0.0",
+  "description": "Backend API for the HCR website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eisa2003/HCR_Website_BackEnd_API.git"
+  },
+  "author": "Eisa Chaudhary",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Eisa2003/HCR_Website_BackEnd_API/issues"
+  },
+  "homepage": "https://github.com/Eisa2003/HCR_Website_BackEnd_API#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
