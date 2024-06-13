@@ -6,7 +6,8 @@ const Event = require("../modles/eventModel")
 //@access public
 const getEvents = asyncHandler(
     async (req, res) =>{
-        res.status(200).json({message: "All events"})
+        const events = await Event.find(); // Waiting for a promise to be settled
+        res.status(200).json(events); // 200: ok response
     }
 )
 
@@ -15,7 +16,19 @@ const getEvents = asyncHandler(
 //@access public
 const createEvent = asyncHandler(
     async (req, res) =>{
-        res.status(200).json({message: "created an event"})
+        console.log("The request body is: ", req.body);
+        const { title, desc, date, address } = req.body; // Destructuring
+        if (!title || !desc || !date || !address) {
+            res.status(400);
+            throw new Error("All fields are mandatory")
+        }
+        const event = await Event.create({ // returns a promise and created document in the schema format
+            title, // Since key and the value have same name, We can simply
+            desc, // put just one instance of each
+            date,
+            address
+        })
+        res.status(200).json({ event });
     }
 )
 
@@ -24,7 +37,12 @@ const createEvent = asyncHandler(
 //@access public
 const getEventFor = asyncHandler(
     async (req, res) =>{
-        res.status(200).json({message: `This is the event with id: ${req.params.id}`})
+        const event = await Event.findById(req.params.id);
+        if(!event) {
+            res.status(404);
+            throw new Error("event not found");
+        }
+        res.status(200).json({ event });
     }
 )
 
@@ -33,7 +51,25 @@ const getEventFor = asyncHandler(
 //@access public
 const updateEvent = asyncHandler(
     async (req, res) =>{
-        res.status(200).json({message: `Updated event with the id: ${req.params.id}`})
+        const event = await Contact.findById(req.params.id);
+        if(!event) {
+            res.status(404);
+            throw new Error("Event not found");
+        }
+
+        /*
+        if(event.user_id.toString() !== req.user.id) {
+            res.status(403);
+            throw new Error("User cannot change another users event information")
+        }*/
+
+        const updatedEvent = await Event.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        )
+
+        res.status(200).json( updatedEvent );
     }
 )
 
@@ -42,7 +78,20 @@ const updateEvent = asyncHandler(
 //@access public
 const deleteEvent = asyncHandler(
     async (req, res) =>{
-        res.status(200).json({message: `deleted event with the id: ${req.params.id}`})
+        const event = await Event.findById(req.params.id);
+        if(!event) {
+            res.status(404);
+            throw new Error("Event not found");
+        }
+
+        /* For future use
+        if(contact.user_id.toString() !== req.user.id) {
+            res.status(403);
+            throw new Error("User cannot change another users contact information")
+        }*/
+
+        await Event.deleteOne({ _id: req.params.id });
+        res.status(200).json( event );
     }
 )
 
