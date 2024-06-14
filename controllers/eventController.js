@@ -17,8 +17,8 @@ const getEvents = asyncHandler(
 const createEvent = asyncHandler(
     async (req, res) =>{
         console.log("The request body is: ", req.body);
-        const { title, desc, date, address } = req.body; // Destructuring
-        if (!title || !desc || !date || !address) {
+        const { title, desc, date, address, imageUrl } = req.body; // Destructuring
+        if (!title || !desc || !date || !address || !imageUrl) {
             res.status(400);
             throw new Error("All fields are mandatory")
         }
@@ -26,7 +26,8 @@ const createEvent = asyncHandler(
             title, // Since key and the value have same name, We can simply
             desc, // put just one instance of each
             date,
-            address
+            address,
+            imageUrl
         })
         res.status(200).json({ event });
     }
@@ -51,7 +52,7 @@ const getEventFor = asyncHandler(
 //@access public
 const updateEvent = asyncHandler(
     async (req, res) =>{
-        const event = await Contact.findById(req.params.id);
+        const event = await Event.findById(req.params.id);
         if(!event) {
             res.status(404);
             throw new Error("Event not found");

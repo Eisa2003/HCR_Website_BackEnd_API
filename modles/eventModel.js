@@ -17,6 +17,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add the event address"],
   },
+  imageUrl: {
+    type: String,
+    required: [true, "Please add the event image"]
+  }
 }, { timestamps: true }); // end Schema design
 
 // Naming the model Event and the schema is eventSchema
