@@ -25,6 +25,6 @@ const PORT = process.env.PORT || 5000;
 // All of the above initialization is necessary before the server starts to listen
 // so that the code executes and responds how we will it to
 app.listen(PORT, () => {
-    console.log(`server is running on port ${port}`);
+    console.log(`server is running on port ${PORT}`);
 });
 
