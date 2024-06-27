@@ -8,14 +8,17 @@ const connectDb = require("./config/dbConnection");
 const cors = require('cors');
 
 connectDb();
-const app = express(); 
-                                 
+const app = express();
+                  
 // All the middlewares
 app.use(cors({
-    origin: 'http://localhost:3000' // Replace with your React app's origin
+    origin: 'http://localhost:3000' // Our React app's origin
   }));
 
 app.use(express.json()); // Useful for parsing data from HTTP `requests`
+
+app.use("/api/admin", require("./routes/adminRoutes"));
+
 app.use("/api/events", require("./routes/eventRoutes")); // Any requests to "/api/contacts"
                                                        // will be handled by the routes defined in the mentioned file
 app.use(errorHandler); // Have switch statements with status codes in it

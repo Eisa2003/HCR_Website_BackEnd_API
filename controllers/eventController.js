@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler")
-const Event = require("../modles/eventModel")
+const Event = require("../models/eventModel")
 
 //@desc Get all events
 //@route GET /api/events

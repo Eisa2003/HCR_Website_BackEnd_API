@@ -40,11 +40,11 @@ const errorHandler = (err, req, res, next) => { // So a response always returns 
             break;
         default:
             res.json({
-                title: "Some kind of error",
+                title: `Some kind of error with statusCode: ${res.statusCode}`,
                 message: err.message,
                 stackTrace: err.stack
             });
-            console.log("No error, all good!");
+            console.log(`Error or no error with status code ${res.statusCode}`);
             break;
     }
 
