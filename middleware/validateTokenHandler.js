@@ -9,8 +9,10 @@ const validateToken = asyncHandler(async (req, res, next) => {
         try {
             token = authHeader.split(" ")[1]; // Split the whole token in 2 -> An array with two elements. 
                                               // and then we choose the 2nd element
-            const decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-            req.admin = decoded.admin;
+            const decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); // this token also contains the payload
+                                                                                      // which has the admin object in it
+            req.admin = decoded.admin; // So we then create an object named admin for the req
+            // req.test = {"something":"to something"}
             next(); // Calling next ensures that the work of this middleware is complete
                     // and it can proceed to the next middleware
         } catch (err) {
