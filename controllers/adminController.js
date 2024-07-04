@@ -10,14 +10,12 @@ const registerAdmin = asyncHandler(
     async (req, res) => {
         const {adminName, email, password} = req.body;
         if(!adminName || !email || !password){
-            res.status(400); // client error
-            throw new Error("All fields are mandatory!");
+            res.status(400).json({message: "All fields are mandatory!"}); // client error
         }
 
         const adminAvailable = await Admin.findOne({email});
         if(adminAvailable){
-            res.status(400);
-            throw new Error("Admin already registered!")
+            res.status(400).json({message: "Admin already registered!"});
         }
 
         // Hash password
@@ -30,15 +28,15 @@ const registerAdmin = asyncHandler(
         })
 
         if(admin){ // returns a boolean value I think
-            console.log(`Admin created successfully: ${admin}`);
-            res.status(201).json({_id: admin.id, email: admin.email});
+            // console.log(`Admin created successfully: ${admin}`);
+            // res.status(201).json({_id: admin.id, email: admin.email});
+            res.status(201).json({message: "Admin Registered Successfully!"});
         }
         else{
-            res.status(400);
-            throw new Error("User data is not valid");
+            res.status(400).json({message: "User data is not valid"});
         }
         
-        res.json({ message: "Register the admin" });
+        // res.json({ message: "Register the admin" });
     }
 )
 
@@ -49,8 +47,8 @@ const loginAdmin = asyncHandler(
     async (req, res) => {
         const {email, password} = req.body; // destructure the body
         if(!email || !password){
-            res.status(400);
-            throw new Error("All fields are mandatory!");
+            res.status(400).json({message: "All fields are mandatory!"});
+            // throw new Error(""); // This was for the backend specifically
         } // end if
 
         const admin = await Admin.findOne({ email });
@@ -69,11 +67,11 @@ const loginAdmin = asyncHandler(
             res.status(200).json({ accessToken });
         }
         else {
-            res.status(401)
-            throw new Error("email or password is not valid!")
+            res.status(401).json({ message: "email or password is not valid!" })
+            // throw new Error("email or password is not valid!")
         } // end if/else
 
-        res.json({ message: "Login user" });
+        // res.json({ message: "Login user" });
     }
 )
 

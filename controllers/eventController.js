@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const Event = require("../models/eventModel")
+const Admin = require("../models/adminModel")
 
 //@desc Get all events
 //@route GET /api/events
@@ -16,7 +17,12 @@ const getEvents = asyncHandler(
 //@access public
 const createEvent = asyncHandler(
     async (req, res) =>{
-        console.log("The request body is: ", req.body);
+        // console.log("The request body is: ", req.body);
+        const authAdmin = await Admin.findById(req.admin.id)
+        if(!authAdmin) {
+            res.status(401);
+            throw new Error("Admin not authorized")
+        }
         const { title, desc, date, address, imageUrl } = req.body; // Destructuring
         if (!title || !desc || !date || !address || !imageUrl) {
             res.status(400);
@@ -52,6 +58,12 @@ const getEventFor = asyncHandler(
 //@access public
 const updateEvent = asyncHandler(
     async (req, res) =>{
+        const authAdmin = await Admin.findById(req.admin.id)
+        if(!authAdmin) {
+            res.status(401);
+            throw new Error("Admin not authorized")
+        }
+
         const event = await Event.findById(req.params.id);
         if(!event) {
             res.status(404);
@@ -79,6 +91,12 @@ const updateEvent = asyncHandler(
 //@access public
 const deleteEvent = asyncHandler(
     async (req, res) =>{
+        const authAdmin = await Admin.findById(req.admin.id)
+        if(!authAdmin) {
+            res.status(401);
+            throw new Error("Admin not authorized")
+        }
+        
         const event = await Event.findById(req.params.id);
         if(!event) {
             res.status(404);
