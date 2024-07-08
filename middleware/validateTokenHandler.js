@@ -17,7 +17,7 @@ const validateToken = asyncHandler(async (req, res, next) => {
                     // and it can proceed to the next middleware
         } catch (err) {
             console.error("Error verifying token:", err);
-            res.status(401).json({ message: "Unauthorized" });
+            res.status(401).json({ message: "Unauthorized to access this data" });
         }
     } else {
         res.status(401).json({ message: "No token provided" });

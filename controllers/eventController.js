@@ -12,6 +12,16 @@ const getEvents = asyncHandler(
     }
 )
 
+//@desc Get all the events for admin's access for those events
+//@route GET /api/adminEvents
+//@access private
+const getAdminEvents = asyncHandler(
+    async (req, res) =>{
+        const events = await Event.find(); // Waiting for a promise to be settled
+        res.status(200).json(events); // 200: ok response
+    }
+)
+
 //@desc Create new event
 //@route POST /api/events
 //@access public
@@ -114,4 +124,4 @@ const deleteEvent = asyncHandler(
     }
 )
 
-module.exports = { getEvents, createEvent, getEventFor, updateEvent, deleteEvent }
+module.exports = { getEvents, getAdminEvents, createEvent, getEventFor, updateEvent, deleteEvent }
