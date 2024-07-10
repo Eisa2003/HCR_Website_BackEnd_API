@@ -6,7 +6,7 @@ const Admin = require("../models/adminModel")
 //@route GET /api/events
 //@access public
 const getEvents = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         const events = await Event.find(); // Waiting for a promise to be settled
         res.status(200).json(events); // 200: ok response
     }
@@ -16,7 +16,7 @@ const getEvents = asyncHandler(
 //@route GET /api/adminEvents
 //@access private
 const getAdminEvents = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         const events = await Event.find(); // Waiting for a promise to be settled
         res.status(200).json(events); // 200: ok response
     }
@@ -24,12 +24,12 @@ const getAdminEvents = asyncHandler(
 
 //@desc Create new event
 //@route POST /api/events
-//@access public
+//@access private
 const createEvent = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         // console.log("The request body is: ", req.body);
         const authAdmin = await Admin.findById(req.admin.id)
-        if(!authAdmin) {
+        if (!authAdmin) {
             res.status(401);
             throw new Error("Admin not authorized")
         }
@@ -53,9 +53,9 @@ const createEvent = asyncHandler(
 //@route GET /api/events/:id (params)
 //@access public
 const getEventFor = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         const event = await Event.findById(req.params.id);
-        if(!event) {
+        if (!event) {
             res.status(404);
             throw new Error("event not found");
         }
@@ -65,17 +65,17 @@ const getEventFor = asyncHandler(
 
 //@desc update event
 //@route PUT /api/events/:id
-//@access public
+//@access private
 const updateEvent = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         const authAdmin = await Admin.findById(req.admin.id)
-        if(!authAdmin) {
+        if (!authAdmin) {
             res.status(401);
             throw new Error("Admin not authorized")
         }
 
         const event = await Event.findById(req.params.id);
-        if(!event) {
+        if (!event) {
             res.status(404);
             throw new Error("Event not found");
         }
@@ -92,23 +92,23 @@ const updateEvent = asyncHandler(
             { new: true }
         )
 
-        res.status(200).json( updatedEvent );
+        res.status(200).json(updatedEvent);
     }
 )
 
 //@desc Get all events
 //@route DELETE /api/events/:id
-//@access public
+//@access private
 const deleteEvent = asyncHandler(
-    async (req, res) =>{
+    async (req, res) => {
         const authAdmin = await Admin.findById(req.admin.id)
-        if(!authAdmin) {
+        if (!authAdmin) {
             res.status(401);
             throw new Error("Admin not authorized")
         }
-        
+
         const event = await Event.findById(req.params.id);
-        if(!event) {
+        if (!event) {
             res.status(404);
             throw new Error("Event not found");
         }
@@ -120,7 +120,7 @@ const deleteEvent = asyncHandler(
         }*/
 
         await Event.deleteOne({ _id: req.params.id });
-        res.status(200).json( event );
+        res.status(200).json(event);
     }
 )
 

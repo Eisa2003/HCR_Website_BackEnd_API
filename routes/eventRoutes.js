@@ -7,12 +7,12 @@ const validateToken = require("../middleware/validateTokenHandler");
 // post - for creating new data
 // put - for updating the existing data | And delete is obvious
 
-router.route('/').get(getEvents).post(createEvent) // The paths are combined which means
+router.route('/').get(getEvents).post(validateToken, createEvent) // The paths are combined which means
                                   // the base path: from index.js and +
                                   // the relative path: from this files
 
 router.route('/admin').get(validateToken, getAdminEvents); // This route is for the admin controls for the events
 
-router.route('/:id').get(getEventFor).put(updateEvent).delete(deleteEvent) // through .params you can access the paramaters passed with the request
+router.route('/:id').get(getEventFor).put(validateToken, updateEvent).delete(validateToken, deleteEvent) // through .params you can access the paramaters passed with the request
 
 module.exports = router;

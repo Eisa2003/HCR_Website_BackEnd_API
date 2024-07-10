@@ -44,7 +44,7 @@ const errorHandler = (err, req, res, next) => { // So a response always returns 
                 message: err.message,
                 stackTrace: err.stack
             });
-            console.log(`Error or no error with status code ${res.statusCode}`);
+            console.log(`Error / No error with status code ${res.statusCode}`);
             break;
     }
 
