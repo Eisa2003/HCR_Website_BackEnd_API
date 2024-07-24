@@ -33,17 +33,27 @@ const createResource = asyncHandler(
             res.status(401);
             throw new Error("Admin not authorized")
         }
-        const { title, desc, date, address, imageUrl } = req.body; // Destructuring
-        if (!title || !desc || !date || !address || !imageUrl) {
+        const { title, resourceName, imageUrl } = req.body; // Destructuring
+        if (!title || !resourceName ||  !imageUrl) {
             res.status(400);
             throw new Error("All fields are mandatory")
         }
         const resource = await Resource.create({ // returns a promise and created document in the schema format
             title, // Since key and the value have same name, We can simply
-            desc, // put just one instance of each
-            date,
+            resource, // put just one instance of each
+            imageUrl,
             address,
-            imageUrl
+            phone,
+            contactName,
+            website,
+            email,
+            mission,
+            approach,
+            hoursOfOperation,
+            locations,
+            socialMedia,
+            additionalInfo,
+            
         })
         res.status(200).json({ resource });
     }

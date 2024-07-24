@@ -39,7 +39,7 @@ const resourceSchema = new mongoose.Schema({
     },
     services: {
         type: [String],
-    },
+    }, // not being used right now
     hoursOfOperation: {
         type: [String],
     },
@@ -64,6 +64,10 @@ const resourceSchema = new mongoose.Schema({
     additionalInfo: {
         type: String,
     },
+    resourceName: {
+        type: String,
+        required: true,
+    }
 }, { timestamps: true }); // end Schema design
 
 // Naming the model Resource and the schema is resourceSchema
