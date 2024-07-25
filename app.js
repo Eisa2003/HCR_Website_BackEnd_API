@@ -12,7 +12,8 @@ const app = express();
                   
 // All the middlewares
 app.use(cors({
-    origin: 'http://localhost:3000' // Our React app's origin
+    origin: 'http://hcrbucket.s3-website.ap-south-1.amazonaws.com' // Our React app's origin - 'http://localhost:3000'
+                                    // Our website's origin - http://hcrbucket.s3-website.ap-south-1.amazonaws.com
   }));
 
 app.use(express.json()); // Useful for parsing data from HTTP `requests`
