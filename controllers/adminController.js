@@ -62,7 +62,7 @@ const loginAdmin = asyncHandler(
                     id: admin.id
                 }
             }, process.env.ACCESS_TOKEN_SECRET, // Signature
-               { expiresIn: "15m" }
+               { expiresIn: "55m" }
         );
             res.status(200).json({ accessToken });
         }
