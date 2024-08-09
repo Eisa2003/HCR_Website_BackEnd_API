@@ -43,16 +43,7 @@ const resourceSchema = new mongoose.Schema({
         type: [String],
     },
     socialMedia: {
-        type: [{
-            name: {
-                type: String,
-                required: true,
-            },
-            link: {
-                type: String,
-                required: true,
-            },
-        }],
+        type: [String],
     },
     additionalInfo: {
         type: String,
