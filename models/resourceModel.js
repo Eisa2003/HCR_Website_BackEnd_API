@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const resourceSchema = new mongoose.Schema({
     resource: {
         type: String,
-        required: [true, "Please add the resource title"],
+        required: [true, "Please add the resource database name"],
     },
     title: {
         type: String,
@@ -16,11 +16,7 @@ const resourceSchema = new mongoose.Schema({
         type: String, 
     },
     phone: {
-        type: [
-            {
-                type: String, 
-            },
-        ], // This is an array of objects
+        type: [String], 
     },
     contactName: {
         type: [String],// An array of strings
@@ -44,10 +40,7 @@ const resourceSchema = new mongoose.Schema({
         type: [String],
     },
     locations: {
-        type: [{
-            // Define location schema here if needed (e.g., address, coordinates)
-            type: String,
-        }],
+        type: [String],
     },
     socialMedia: {
         type: [{
