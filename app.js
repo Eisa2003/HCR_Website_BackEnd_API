@@ -12,7 +12,7 @@ const app = express();
                   
 // All the middlewares
 app.use(cors({
-    origin: 'http://hcrbucket.s3-website.ap-south-1.amazonaws.com' // Our React app's origin - 'http://localhost:3000'
+    origin: 'http://localhost:3000' // Our React app's origin - 'http://localhost:3000'
                                     // Our website's origin - http://hcrbucket.s3-website.ap-south-1.amazonaws.com
   }));
 
@@ -25,6 +25,8 @@ app.use("/api/resources", require("./routes/resourceRoutes"));
 app.use("/api/events", require("./routes/eventRoutes")); // Any requests to "/api/contacts"
                                                        // will be handled by the routes defined in the mentioned file
 app.use(errorHandler); // Have switch statements with status codes in it
+
+app.use("/api/alert", require("./routes/alertRoute"));
 
 const PORT = process.env.PORT || 5000;
 
