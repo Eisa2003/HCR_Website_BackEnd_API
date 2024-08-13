@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler")
-const Admin = require("../models/adminModel")
 const Alert = require("../models/alertModel")
 
 //@desc Get all events
@@ -17,11 +16,6 @@ const getAlert = asyncHandler(
 //@access private
 const updateAlert = asyncHandler(
     async (req, res) => {
-        const authAdmin = await Admin.findById(req.admin.id) // req.admin is from the token middleware
-        if (!authAdmin) {
-            res.status(401);
-            throw new Error("Admin not authorized")
-        }
 
         const alert = await Alert.findById('66b9102792d7f3bb396d886c');
         if (!alert) {
